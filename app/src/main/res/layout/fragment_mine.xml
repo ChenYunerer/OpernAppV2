@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.yun.opern.ui.fragments.MineFragment">
+    tools:context="com.yun.opernv2.ui.fragments.MineFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

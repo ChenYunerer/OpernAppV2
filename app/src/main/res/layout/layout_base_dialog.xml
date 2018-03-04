@@ -1,44 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/shape_common_dialog_bg"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_marginTop="13dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/black"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:singleLine="true"
             android:text="提示"
-            android:textSize="17sp"
-            android:textColor="@color/black" />
+            android:textColor="@color/white"
+            android:textSize="17sp" />
 
 
         <FrameLayout
             android:id="@+id/fl_content"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp">
 
             <TextView
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/black"
                 android:textSize="15sp"
-                tools:text="content_content_content_content_content_content_content_content_content_content_content"
-                android:textColor="@color/black" />
+                tools:text="content_content_content_content_content_content_content_content_content_content_content" />
 
         </FrameLayout>
 
@@ -52,18 +55,18 @@
 
     <LinearLayout
         android:id="@+id/button_btn"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_negative"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="取消"
+            android:layout_weight="1"
             android:background="@null"
+            android:text="取消"
             android:textColor="@color/black"
             android:textSize="17sp" />
 
@@ -74,11 +77,11 @@
 
         <Button
             android:id="@+id/btn_positive"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="确认"
+            android:layout_weight="1"
             android:background="@null"
+            android:text="确认"
             android:textColor="@color/orange"
             android:textSize="17sp" />
 

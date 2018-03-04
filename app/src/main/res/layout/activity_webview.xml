@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.yun.opern.views.ActionBarNormal
+    <com.yun.opernv2.views.ActionBarNormal
         android:id="@+id/actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

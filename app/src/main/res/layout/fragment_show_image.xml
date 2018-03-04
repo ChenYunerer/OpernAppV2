@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    tools:context="com.yun.opern.ui.fragments.ShowImageFragment">
+    tools:context="com.yun.opernv2.ui.fragments.ShowImageFragment">
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/photo_view"

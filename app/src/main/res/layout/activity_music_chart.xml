@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.yun.opern.ui.activitys.MusicChartActivity">
+    tools:context="com.yun.opernv2.ui.activitys.MusicChartActivity">
 
-    <com.yun.opern.views.ActionBarNormal
+    <com.yun.opernv2.views.ActionBarNormal
         android:id="@+id/actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
