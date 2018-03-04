@@ -2,12 +2,17 @@ package com.yun.opern.ui.bases;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
+import com.yun.opern.ui.dialog.BaseDialog;
+import com.yun.opern.ui.dialog.CommonDialog;
+import com.yun.opern.ui.dialog.LoadingDialog;
 import com.yun.opern.views.ProgressDialog;
 
 import butterknife.ButterKnife;
@@ -19,8 +24,8 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected Context context;
-    protected ProgressDialog progressDialog;
-    protected AlertDialog alertDialog;
+    protected LoadingDialog progressDialog;
+    protected CommonDialog alertDialog;
     protected Unbinder unbinder;
 
     protected abstract int contentViewRes();
@@ -34,6 +39,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         context = this;
         setContentView(contentViewRes());
         unbinder = ButterKnife.bind(this);
@@ -44,7 +52,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void showProgressDialog(boolean show, DialogInterface.OnCancelListener onCancelListener) {
         if(show){
             if(progressDialog == null){
-                progressDialog = new ProgressDialog(context);
+                progressDialog = new LoadingDialog(context);
                 progressDialog.setCancelable(true);
                 progressDialog.setCanceledOnTouchOutside(true);
                 if(onCancelListener != null){
@@ -63,19 +71,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         showProgressDialog(show, null);
     }
 
-    protected void showDialog(String title, String message, String positive, DialogInterface.OnClickListener positiveListener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    protected void showDialog(String title, String message, String positive, BaseDialog.OnPositiveButtonClickListener positiveListener) {
+        alertDialog = new CommonDialog(context);
         if (title != null) {
-            builder.setTitle(title);
+            alertDialog.setTitleText(title);
         }
         if (message != null) {
-            builder.setMessage(message);
+            alertDialog.setContentText(message);
         }
         if (positive != null && positiveListener != null) {
-            builder.setPositiveButton(positive, positiveListener);
+            alertDialog.setPositiveButtonText(positive);
+            alertDialog.setOnPositiveButtonClickListener(positiveListener);
         }
-        builder.setCancelable(true);
-        alertDialog = builder.create();
         alertDialog.show();
     }
 

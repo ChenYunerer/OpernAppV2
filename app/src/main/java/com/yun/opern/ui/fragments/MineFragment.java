@@ -74,8 +74,6 @@ public class MineFragment extends Fragment {
     TextView appCacheSizeTv;
     @BindView(R.id.clear_app_cache_rl)
     RelativeLayout clearAppCacheRl;
-    @BindView(R.id.push_switch)
-    Switch pushSwitch;
     @BindView(R.id.logout_btn)
     View logoutBtn;
     @BindView(R.id.donate_rl)
@@ -194,11 +192,6 @@ public class MineFragment extends Fragment {
     @OnClick(R.id.donate_rl)
     public void OnDonateRlClicked() {
         startActivity(new Intent(getContext(), DonateActivity.class));
-    }
-
-    @OnCheckedChanged(R.id.push_switch)
-    public void onPushSwitchCheckedChanged(final CompoundButton buttonView, boolean isChecked) {
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

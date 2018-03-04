@@ -6,13 +6,15 @@
     <color name="colorAccent">#FF4081</color>
 
 
-
     <color name="green">#20B2AA</color>
 
     <!--应用的背景颜色-->
     <color name="app_background">#EFEFEF</color>
 
     <color name="light_blue">#6593cb</color>
+
+    <color name="orange">#ff9500</color>
+
 
     <!--灰阶-->
     <color name="white">#FFFFFF</color>

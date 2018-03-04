@@ -1,6 +1,5 @@
 package com.yun.opern.ui.activitys;
 
-import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -43,7 +42,6 @@ public class MainActivity extends BaseActivity {
     View indicator;
 
     private ViewPagerAdapter viewPagerAdapter;
-    private int searchFabInitBottomMargin;
 
     @Override
     protected int contentViewRes() {
@@ -53,9 +51,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(viewPagerAdapter);
