@@ -5,15 +5,15 @@ package com.yun.opernv2.model;
  */
 
 public class UserLoginRequestInfo {
-    private String userId;
+    private long userId;
     private String userName;
     private String userGender;
 
-    public String getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

@@ -10,7 +10,6 @@ import com.yun.opernv2.model.OpernInfo;
 import com.yun.opernv2.model.UserLoginRequestInfo;
 import com.yun.opernv2.net.request.GetRandomOpernReq;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
@@ -40,22 +39,22 @@ public interface ApiService {
     Observable<BaseResponse<ArrayList<OpernInfo>>> searchOpernInfoByCategory(@Query("categoryOne") String categoryOne, @Query("categoryTwo") String categoryTwo, @Query("index") int index, @Query("numPerPage") int numPerPage);
 
     @GET(value = "collection/isCollected")
-    Observable<BaseResponse> isCollected(@Query("userId") BigInteger userId, @Query("opernId") int opernId);
+    Observable<BaseResponse> isCollected(@Query("userId") long userId, @Query("opernId") int opernId);
 
     @GET(value = "collection/add")
-    Observable<BaseResponse> addCollection(@Query("userId") BigInteger userId, @Query("opernId") int opernId);
+    Observable<BaseResponse> addCollection(@Query("userId") long userId, @Query("opernId") int opernId);
 
     @GET(value = "collection/remove")
-    Observable<BaseResponse> removeCollection(@Query("userId") BigInteger userId, @Query("opernId") int opernId);
+    Observable<BaseResponse> removeCollection(@Query("userId") long userId, @Query("opernId") int opernId);
 
     @GET(value = "collection/collectionOpernInfo")
-    Observable<BaseResponse<ArrayList<OpernInfo>>> getCollectionOpernInfo(@Query("userId") BigInteger userId);
+    Observable<BaseResponse<ArrayList<OpernInfo>>> getCollectionOpernInfo(@Query("userId") long userId);
 
     @POST(value = "feedback/commit")
     Observable<BaseResponse> commitFeedback(@Body FeedbackInfo feedbackInfo);
 
     @GET(value = "feedback/getFeedbackInfos")
-    Observable<BaseResponse<ArrayList<FeedbackInfo>>> getFeedbackInfos(@Query("userId") BigInteger userId);
+    Observable<BaseResponse<ArrayList<FeedbackInfo>>> getFeedbackInfos(@Query("userId") long userId);
 
     @GET(value = "category/categoryInfo")
     Observable<BaseResponse<ArrayList<CategoryInfo>>> getCategoryInfo();

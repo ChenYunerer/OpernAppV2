@@ -14,24 +14,24 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_marginTop="15dp"
             android:id="@+id/user_info_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:background="@color/white"
             android:paddingBottom="12dp"
             android:paddingTop="12dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_head_img"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="12dp"
                 android:src="@mipmap/ic_weibo"
                 app:civ_border_color="@color/white"
-                app:civ_border_width="3dp" />
+                app:civ_border_width="1dp" />
 
             <TextView
                 android:id="@+id/user_name_tv"
@@ -316,12 +316,12 @@
         android:background="@drawable/selector_log_out_btn"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="15dp"
-        android:visibility="gone">
+        android:padding="10dp"
+        android:visibility="visible">
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@mipmap/ic_logout" />
 
         <TextView

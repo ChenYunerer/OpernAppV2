@@ -9,22 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AccessTokenKeeper;
-import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
-import com.sina.weibo.sdk.auth.WbConnectErrorMessage;
-import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.yun.opernv2.R;
-import com.yun.opernv2.common.WeiBoConstants;
 import com.yun.opernv2.common.WeiBoUserInfo;
 import com.yun.opernv2.common.WeiBoUserInfoKeeper;
 import com.yun.opernv2.model.UserLoginRequestInfo;
 import com.yun.opernv2.model.event.OpernFileDeleteEvent;
-import com.yun.opernv2.model.event.UserLoginOrLogoutEvent;
+import com.yun.opernv2.model.event.StartWeiBoAuthorizeEvent;
+import com.yun.opernv2.model.event.WeiBoAuthorizeSuccessEvent;
 import com.yun.opernv2.net.HttpCore;
 import com.yun.opernv2.ui.activitys.AboutUsActivity;
 import com.yun.opernv2.ui.activitys.DonateActivity;
@@ -33,6 +28,7 @@ import com.yun.opernv2.ui.activitys.MyDownloadActivity;
 import com.yun.opernv2.ui.activitys.TellUsActivity;
 import com.yun.opernv2.utils.CacheFileUtil;
 import com.yun.opernv2.utils.ErrorMessageUtil;
+import com.yun.opernv2.utils.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -45,8 +41,6 @@ import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.internal.schedulers.NewThreadScheduler;
-
-import static com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade;
 
 public class MineFragment extends Fragment {
 
@@ -73,14 +67,13 @@ public class MineFragment extends Fragment {
     @BindView(R.id.donate_rl)
     RelativeLayout donateRl;
 
-    private SsoHandler mSsoHandler;
+
     private Unbinder unbind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        WbSdk.install(getContext(), new AuthInfo(getContext(), WeiBoConstants.APP_KEY, WeiBoConstants.REDIRECT_URL, WeiBoConstants.SCOPE));
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
         unbind = ButterKnife.bind(this, view);
         initView();
@@ -89,11 +82,12 @@ public class MineFragment extends Fragment {
 
 
     private void initView() {
-        Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(getContext());
         WeiBoUserInfo weiBoUserInfo = WeiBoUserInfoKeeper.read(getContext());
-        if (accessToken.isSessionValid() && weiBoUserInfo != null) {
-            Glide.with(getContext()).asBitmap().load(weiBoUserInfo.getAvatar_hd()).transition(withCrossFade()).into(userHeadImg);
-            userNameTv.setText(weiBoUserInfo.getScreen_name());
+        if (weiBoUserInfo != null) {
+            Glide.with(this).asBitmap()
+                    .load(weiBoUserInfo.getAvatar_hd())
+                    .into(userHeadImg);
+            userNameTv.setText(weiBoUserInfo.getName());
             userInfoTv.setText(weiBoUserInfo.getDescription());
             logoutBtn.setVisibility(View.VISIBLE);
         } else {
@@ -107,11 +101,8 @@ public class MineFragment extends Fragment {
 
     @OnClick(R.id.user_info_rl)
     public void onUserInfoRlClicked() {
-        Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(getContext());
-        WeiBoUserInfo weiBoUserInfo = WeiBoUserInfoKeeper.read(getContext());
-        if (!accessToken.isSessionValid() || weiBoUserInfo == null) {
-            mSsoHandler = new SsoHandler(getActivity());
-            mSsoHandler.authorize(new SelfWbAuthListener());
+        if (WeiBoUserInfoKeeper.read(getContext()) == null) {
+            EventBus.getDefault().post(new StartWeiBoAuthorizeEvent());
         }
     }
 
@@ -122,9 +113,8 @@ public class MineFragment extends Fragment {
 
     @OnClick(R.id.my_collection_rl)
     public void onMyCollectionRlClicked() {
-        Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(getContext());
         WeiBoUserInfo weiBoUserInfo = WeiBoUserInfoKeeper.read(getContext());
-        if (accessToken.isSessionValid() && weiBoUserInfo != null) {
+        if (weiBoUserInfo != null) {
             startActivity(new Intent(getContext(), MyCollectionActivity.class));
         } else {
             AlertDialog alertDialog = new AlertDialog.Builder(getContext())
@@ -154,9 +144,8 @@ public class MineFragment extends Fragment {
 
     @OnClick(R.id.tell_us_rl)
     public void onTellUsRlClicked() {
-        Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(getContext());
         WeiBoUserInfo weiBoUserInfo = WeiBoUserInfoKeeper.read(getContext());
-        if (accessToken.isSessionValid() && weiBoUserInfo != null) {
+        if (weiBoUserInfo != null) {
             startActivity(new Intent(getContext(), TellUsActivity.class));
         } else {
             //showDialog("告诉我们", "登录之后才能使用该功能哦~", "登录", (dialog, which) -> onUserInfoRlClicked());
@@ -172,7 +161,6 @@ public class MineFragment extends Fragment {
                     AccessTokenKeeper.clear(getContext());
                     WeiBoUserInfoKeeper.clear(getContext());
                     initView();
-                    EventBus.getDefault().post(new UserLoginOrLogoutEvent(false));
                 })
                 .create();
         alertDialog.show();
@@ -193,56 +181,36 @@ public class MineFragment extends Fragment {
         initView();
     }
 
-    private class SelfWbAuthListener implements com.sina.weibo.sdk.auth.WbAuthListener {
-        @Override
-        public void onSuccess(final Oauth2AccessToken token) {
-            getActivity().runOnUiThread(() -> {
-                Oauth2AccessToken mAccessToken = token;
-                if (mAccessToken.isSessionValid()) {
-                    AccessTokenKeeper.writeAccessToken(getContext(), mAccessToken);
-                    getUserInfoFromWeiBo();
-                }
-            });
-        }
-
-        @Override
-        public void cancel() {
-        }
-
-        @Override
-        public void onFailure(WbConnectErrorMessage errorMessage) {
-            Toast.makeText(getContext(), errorMessage.getErrorMessage(), Toast.LENGTH_LONG).show();
-        }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void OnWeiBoAuthorizeSuccess(WeiBoAuthorizeSuccessEvent event) {
+        getUserInfoFromWeiBo();
     }
 
     /**
      * 获取微博用户信息
      */
     public void getUserInfoFromWeiBo() {
-        //showProgressDialog(true);
         Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(getContext());
         HttpCore.getInstance().getApi()
                 .getWeiBoUserInfo(accessToken.getToken(), accessToken.getUid())
                 .subscribeOn(new NewThreadScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(weiBoUserInfo -> {
+                    LogUtil.i("tag", weiBoUserInfo.toString());
                     WeiBoUserInfoKeeper.write(getContext(), weiBoUserInfo);
                     login();
                     initView();
-                    EventBus.getDefault().post(new UserLoginOrLogoutEvent(true));
-                    //showProgressDialog(false);
                 }, throwable -> {
                     throwable.printStackTrace();
                     ErrorMessageUtil.showErrorByToast(throwable);
-                    //showProgressDialog(false);
                 });
     }
 
     public void login() {
         UserLoginRequestInfo userLoginRequestInfo = new UserLoginRequestInfo();
         WeiBoUserInfo weiBoUserInfo = WeiBoUserInfoKeeper.read(getContext());
-        userLoginRequestInfo.setUserId(weiBoUserInfo.getIdstr());
-        userLoginRequestInfo.setUserName(weiBoUserInfo.getScreen_name());
+        userLoginRequestInfo.setUserId(weiBoUserInfo.getId());
+        userLoginRequestInfo.setUserName(weiBoUserInfo.getName());
         userLoginRequestInfo.setUserGender(weiBoUserInfo.getGender());
         HttpCore.getInstance().getApi()
                 .userLogin(userLoginRequestInfo)
@@ -251,14 +219,6 @@ public class MineFragment extends Fragment {
                 .subscribe();
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (mSsoHandler != null) {
-            mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
-        }
-    }
 
     @Override
     public void onDestroy() {

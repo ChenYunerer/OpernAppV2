@@ -1,19 +1,17 @@
 package com.yun.opernv2.model;
 
-import java.math.BigInteger;
-
 public class FeedbackInfo {
-    private BigInteger userId;
+    private long userId;
     private String feedbackMessage;
     private String feedbackDateTime;
     private String communicateFlg;
     private String delFlg;
 
-    public BigInteger getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

@@ -16,7 +16,7 @@ import com.yun.opernv2.ui.activitys.MainActivity;
 
 public class Application extends android.app.Application{
     private static Context applictionContext;
-    private static final String BUGLY_APP_ID = "b94c18144d";
+    private static final String BUGLY_APP_ID = "4713b8ea88";
 
     @Override
     public void onCreate() {

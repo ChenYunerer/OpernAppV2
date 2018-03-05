@@ -1,6 +1,6 @@
 package com.yun.opernv2.net;
 
-import com.sina.weibo.sdk.utils.LogUtil;
+import com.yun.opernv2.utils.LogUtil;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -20,9 +20,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpCore {
     private static final String TAG = HttpCore.class.getSimpleName();
-    //public static final String baseUrl = "http://106.14.183.240:80/OpernServer/";
-    //public static final String baseUrl = "http://192.168.0.102:8080/opern/";
-    public static final String BaseUrl = "http://192.168.0.109:8080/OpernServer/";
+    public static final String BaseUrl = "http://60.205.182.130:8080/OpernServer/";
+    //public static final String BaseUrl = "http://192.168.0.102:8080/opern/";
+    //public static final String BaseUrl = "http://192.168.0.109:8080/OpernServer/";
     private static HttpCore httpCore;
     private static OkHttpClient okHttpClient;
     private static ApiService apiService;
@@ -32,9 +32,10 @@ public class HttpCore {
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(15, TimeUnit.SECONDS)
-                .addNetworkInterceptor(new HeaderInterceptor())
-                .addNetworkInterceptor(new LogInterceptor())
-                .addNetworkInterceptor(new SleepInterceptor())
+                //.proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("192.168.0.109", 8888)))
+                //.addNetworkInterceptor(new HeaderInterceptor())
+                //.addNetworkInterceptor(new LogInterceptor())
+                //.addNetworkInterceptor(new SleepInterceptor())
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()

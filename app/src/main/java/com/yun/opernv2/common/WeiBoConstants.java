@@ -20,7 +20,7 @@ public class WeiBoConstants {
      * 建议使用默认回调页：https://api.weibo.com/oauth2/default.html
      * </p>
      */
-    public static final String REDIRECT_URL = "http://106.14.183.240:8080/opern/";
+    public static final String REDIRECT_URL = "http://60.205.182.130:8080/OpernServer/";
 
     /**
      * Scope 是 OAuth2.0 授权机制中 authorize 接口的一个参数。通过 Scope，平台将开放更多的微博

@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment {
         requesting = true;
         opernSrl.setRefreshing(true);
         GetRandomOpernReq req = new GetRandomOpernReq();
-        req.setPageSize(20);
+        req.setPageSize(40);
         HttpCore.getInstance().getApi()
                 .getRandomOpernInfo(req)
                 .subscribeOn(new NewThreadScheduler())

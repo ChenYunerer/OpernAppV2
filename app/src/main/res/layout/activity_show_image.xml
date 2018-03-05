@@ -9,35 +9,37 @@
     <com.yun.opernv2.views.ViewPagerFix
         android:id="@+id/image_vp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:id="@+id/fab_btns"
-        android:layout_gravity="bottom|end"
-        android:paddingBottom="30dp"
-        android:layout_marginEnd="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="30dp"
+        android:orientation="horizontal"
+        android:paddingBottom="30dp">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/download_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
-            android:src="@mipmap/ic_download" />
+            android:src="@mipmap/ic_download"
+            app:backgroundTint="@color/white" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/collection_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_collection" />
+            android:src="@mipmap/ic_collection"
+            app:backgroundTint="@color/white" />
     </LinearLayout>
 
     <com.yun.opernv2.views.ActionBarNormal
         android:id="@+id/actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="this is title"/>
+        app:title="this is title" />
 
 </FrameLayout>
