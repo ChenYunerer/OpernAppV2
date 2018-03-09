@@ -26,7 +26,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.yun.opernv2.R;
 import com.yun.opernv2.model.OpernPicInfo;
 import com.yun.opernv2.ui.activitys.ShowImageActivity;
-import com.yun.opernv2.utils.ErrorMessageUtil;
+import com.yun.opernv2.utils.ToastUtil;
 import com.yun.opernv2.views.ActionBarNormal;
 
 import butterknife.BindView;
@@ -78,9 +78,9 @@ public class ShowImageFragment extends Fragment {
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
                 if (retry > 0) {
                     initView();
-                    ErrorMessageUtil.showErrorByToast("加载图片失败，正在重新加载");
+                    ToastUtil.showShort("加载图片失败，正在重新加载");
                 } else {
-                    ErrorMessageUtil.showErrorByToast("加载图片失败，请重试");
+                    ToastUtil.showShort("加载图片失败，请重试");
                     getActivity().finish();
                 }
                 retry--;

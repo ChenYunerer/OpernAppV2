@@ -28,7 +28,6 @@ import com.yun.opernv2.net.HttpCore;
 import com.yun.opernv2.net.request.GetRandomOpernReq;
 import com.yun.opernv2.ui.activitys.ShowImageActivity;
 import com.yun.opernv2.ui.activitys.WebViewActivity;
-import com.yun.opernv2.utils.ErrorMessageUtil;
 import com.yun.opernv2.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -108,7 +107,7 @@ public class HomeFragment extends Fragment {
                     }
                     ArrayList<OpernInfo> data = arrayListBaseResponse.getData();
                     if (data == null || data.size() == 0) {
-                        ErrorMessageUtil.showErrorByToast("没有更多数据了");
+                        ToastUtil.showShort("没有更多数据了");
                     } else {
                         opernInfoArrayList.addAll(data);
                         index++;
@@ -120,7 +119,7 @@ public class HomeFragment extends Fragment {
                     throwable.printStackTrace();
                     opernSrl.setRefreshing(false);
                     requesting = false;
-                    ErrorMessageUtil.showErrorByToast(throwable);
+                    ToastUtil.showError(throwable);
                 });
     }
 

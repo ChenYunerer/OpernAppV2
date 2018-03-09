@@ -51,7 +51,7 @@ public class CategoryFragment extends Fragment {
     }
 
     private void initView() {
-        categorySrl.setColorSchemeColors(getResources().getColor(R.color.light_blue));
+        categorySrl.setColorSchemeColors(getResources().getColor(R.color.black));
         categorySrl.setOnRefreshListener(this::getCategoryInfo);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         categoryLv.setLayoutManager(linearLayoutManager);

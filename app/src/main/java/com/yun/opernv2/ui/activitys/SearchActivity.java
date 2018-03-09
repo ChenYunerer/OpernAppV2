@@ -28,8 +28,8 @@ import com.yun.opernv2.net.HttpCore;
 import com.yun.opernv2.net.request.SearchOpernReq;
 import com.yun.opernv2.ui.bases.BaseActivity;
 import com.yun.opernv2.utils.DisplayUtil;
-import com.yun.opernv2.utils.ErrorMessageUtil;
 import com.yun.opernv2.utils.KeyboardUtils;
+import com.yun.opernv2.utils.ToastUtil;
 import com.yun.opernv2.views.ActionBarNormal;
 
 import java.util.ArrayList;
@@ -176,7 +176,7 @@ public class SearchActivity extends BaseActivity {
                     throwable.printStackTrace();
                     progressBar.setVisibility(View.GONE);
                     opernLv.setVisibility(View.VISIBLE);
-                    ErrorMessageUtil.showErrorByToast(throwable);
+                    ToastUtil.showError(throwable);
                     requesting = false;
                 });
     }

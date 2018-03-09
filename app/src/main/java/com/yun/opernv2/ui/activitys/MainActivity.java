@@ -28,8 +28,8 @@ import com.yun.opernv2.ui.bases.BaseActivity;
 import com.yun.opernv2.ui.fragments.CategoryFragment;
 import com.yun.opernv2.ui.fragments.HomeFragment;
 import com.yun.opernv2.ui.fragments.MineFragment;
-import com.yun.opernv2.utils.ErrorMessageUtil;
 import com.yun.opernv2.utils.ScreenUtils;
+import com.yun.opernv2.utils.ToastUtil;
 import com.yun.opernv2.views.ViewPagerFix;
 
 import org.greenrobot.eventbus.EventBus;
@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity {
             finish();
             System.exit(0);
         } else {
-            ErrorMessageUtil.showErrorByToast("再次点击退出应用");
+            ToastUtil.showShort("再次点击退出应用");
             currentTime = System.currentTimeMillis() / 1000;
         }
     }

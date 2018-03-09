@@ -22,7 +22,6 @@ import com.yun.opernv2.net.request.AddCollectionReq;
 import com.yun.opernv2.net.request.RemoveCollectionReq;
 import com.yun.opernv2.ui.bases.BaseActivity;
 import com.yun.opernv2.ui.fragments.ShowImageFragment;
-import com.yun.opernv2.utils.ErrorMessageUtil;
 import com.yun.opernv2.utils.FileUtil;
 import com.yun.opernv2.utils.ImageDownloadUtil;
 import com.yun.opernv2.utils.ToastUtil;
@@ -184,7 +183,7 @@ public class ShowImageActivity extends BaseActivity {
                         },
                         throwable -> {
                             throwable.printStackTrace();
-                            ErrorMessageUtil.showErrorByToast(throwable);
+                            ToastUtil.showError(throwable);
                         }
                 );
     }

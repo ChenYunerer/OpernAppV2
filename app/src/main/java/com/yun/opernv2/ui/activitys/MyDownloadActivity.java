@@ -17,9 +17,8 @@ import com.yun.opernv2.model.OpernPicInfo;
 import com.yun.opernv2.model.event.OpernFileDeleteEvent;
 import com.yun.opernv2.ui.bases.BaseActivity;
 import com.yun.opernv2.utils.CacheFileUtil;
-import com.yun.opernv2.utils.ErrorMessageUtil;
 import com.yun.opernv2.utils.FileUtil;
-import com.yun.opernv2.utils.T;
+import com.yun.opernv2.utils.ToastUtil;
 import com.yun.opernv2.views.ActionBarNormal;
 import com.yun.opernv2.views.SquareImageView;
 
@@ -53,7 +52,7 @@ public class MyDownloadActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        T.showShort("长按可删除文件");
+        ToastUtil.showShort("长按可删除文件");
         new ScanImgFileThread(opernInfoList -> {
             opernInfos.clear();
             opernInfos.addAll(opernInfoList);
@@ -78,7 +77,7 @@ public class MyDownloadActivity extends BaseActivity {
                             adapter.notifyDataSetChanged();
                             EventBus.getDefault().post(new OpernFileDeleteEvent());
                         } else {
-                            ErrorMessageUtil.showErrorByToast("删除失败");
+                            ToastUtil.showShort("删除失败");
                         }
                     })
                     .setCancelable(true)

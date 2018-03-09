@@ -9,8 +9,8 @@
 
     <ProgressBar
         android:id="@+id/progressbar"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:visibility="gone" />
 
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="15dp">
+                android:padding="10dp">
 
                 <EditText
                     android:id="@+id/search_input_edt"
@@ -45,7 +45,7 @@
                     android:hint="曲谱名/作词/作曲/演唱者"
                     android:imeOptions="actionSearch"
                     android:singleLine="true"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:id="@+id/search_btn"

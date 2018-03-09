@@ -10,8 +10,8 @@ import com.yun.opernv2.BuildConfig;
 import com.yun.opernv2.R;
 import com.yun.opernv2.ui.bases.BaseActivity;
 import com.yun.opernv2.utils.CacheFileUtil;
-import com.yun.opernv2.utils.ErrorMessageUtil;
 import com.yun.opernv2.utils.NetworkUtils;
+import com.yun.opernv2.utils.ToastUtil;
 
 import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
@@ -40,7 +40,7 @@ public class LauncherActivity extends BaseActivity {
 
     private void tipNetType() {
         if (NetworkUtils.getNetworkType() != NETWORK_WIFI) {
-            ErrorMessageUtil.showErrorByToast("当前处于非WIFI环境");
+            ToastUtil.showShort("当前处于非WIFI环境");
         }
     }
 

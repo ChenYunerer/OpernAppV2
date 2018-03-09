@@ -17,8 +17,7 @@ import com.yun.opernv2.net.HttpCore;
 import com.yun.opernv2.net.request.GetCollectionReq;
 import com.yun.opernv2.net.request.RemoveCollectionReq;
 import com.yun.opernv2.ui.bases.BaseActivity;
-import com.yun.opernv2.utils.ErrorMessageUtil;
-import com.yun.opernv2.utils.T;
+import com.yun.opernv2.utils.ToastUtil;
 import com.yun.opernv2.views.ActionBarNormal;
 import com.yun.opernv2.views.SquareImageView;
 
@@ -50,7 +49,7 @@ public class MyCollectionActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        T.showShort("长按可取消收藏");
+        ToastUtil.showShort("长按可取消收藏");
         adapter = new GridViewAdapter(opernInfos);
         imgGv.setAdapter(adapter);
         imgGv.setOnItemClickListener((parent, view, position, id) -> {
@@ -83,7 +82,7 @@ public class MyCollectionActivity extends BaseActivity {
                     showProgressDialog(false);
                 }, throwable -> {
                     throwable.printStackTrace();
-                    ErrorMessageUtil.showErrorByToast(throwable);
+                    ToastUtil.showError(throwable);
                     showProgressDialog(false);
                 });
     }
@@ -106,11 +105,11 @@ public class MyCollectionActivity extends BaseActivity {
                                 opernInfos.remove(position);
                                 adapter.notifyDataSetChanged();
                             } else {
-                                ErrorMessageUtil.showErrorByToast(baseResponse.getMessage());
+                                ToastUtil.showShort(baseResponse.getMessage());
                             }
                             showProgressDialog(false);
                         }, throwable -> {
-                    ErrorMessageUtil.showErrorByToast(throwable);
+                    ToastUtil.showError(throwable);
                             showProgressDialog(false);
                         }
                 );

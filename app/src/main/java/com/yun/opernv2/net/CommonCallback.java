@@ -2,7 +2,7 @@ package com.yun.opernv2.net;
 
 
 import com.yun.opernv2.model.BaseResponse;
-import com.yun.opernv2.utils.ErrorMessageUtil;
+import com.yun.opernv2.utils.ToastUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +27,6 @@ public class CommonCallback<V> implements Callback<V> {
     @Override
     public void onFailure(Call<V> call, Throwable t) {
         t.printStackTrace();
-        ErrorMessageUtil.showErrorByToast(t);
+        ToastUtil.showError(t);
     }
 }

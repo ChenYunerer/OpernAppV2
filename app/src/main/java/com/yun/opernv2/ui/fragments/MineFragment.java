@@ -25,7 +25,6 @@ import com.yun.opernv2.ui.activitys.DonateActivity;
 import com.yun.opernv2.ui.activitys.MyCollectionActivity;
 import com.yun.opernv2.ui.bases.BaseActivity;
 import com.yun.opernv2.utils.CacheFileUtil;
-import com.yun.opernv2.utils.ErrorMessageUtil;
 import com.yun.opernv2.utils.LogUtil;
 import com.yun.opernv2.utils.ToastUtil;
 
@@ -129,7 +128,7 @@ public class MineFragment extends Fragment {
         AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                 .setPositiveButton("确定", (dialog, which) -> {
                     boolean clear = CacheFileUtil.clear();
-                    ErrorMessageUtil.showErrorByToast(clear ? "缓存已清除" : "清除缓存失败");
+                    ToastUtil.showShort(clear ? "缓存已清除" : "清除缓存失败");
                     initView();
                 })
                 .setTitle("清除缓存")
@@ -191,7 +190,7 @@ public class MineFragment extends Fragment {
                 }, throwable -> {
                     ((BaseActivity) getActivity()).showProgressDialog(false);
                     throwable.printStackTrace();
-                    ErrorMessageUtil.showErrorByToast(throwable);
+                    ToastUtil.showError(throwable);
                 });
     }
 
