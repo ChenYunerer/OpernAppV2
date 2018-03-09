@@ -16,7 +16,6 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.yun.opernv2.R;
 import com.yun.opernv2.common.WeiBoUserInfo;
 import com.yun.opernv2.common.WeiBoUserInfoKeeper;
-import com.yun.opernv2.model.UserLoginRequestInfo;
 import com.yun.opernv2.model.event.OpernFileDeleteEvent;
 import com.yun.opernv2.model.event.StartWeiBoAuthorizeEvent;
 import com.yun.opernv2.model.event.WeiBoAuthorizeSuccessEvent;
@@ -24,11 +23,11 @@ import com.yun.opernv2.net.HttpCore;
 import com.yun.opernv2.ui.activitys.AboutUsActivity;
 import com.yun.opernv2.ui.activitys.DonateActivity;
 import com.yun.opernv2.ui.activitys.MyCollectionActivity;
-import com.yun.opernv2.ui.activitys.MyDownloadActivity;
-import com.yun.opernv2.ui.activitys.TellUsActivity;
+import com.yun.opernv2.ui.bases.BaseActivity;
 import com.yun.opernv2.utils.CacheFileUtil;
 import com.yun.opernv2.utils.ErrorMessageUtil;
 import com.yun.opernv2.utils.LogUtil;
+import com.yun.opernv2.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -48,8 +47,6 @@ public class MineFragment extends Fragment {
     RelativeLayout myDownloadRl;
     @BindView(R.id.my_collection_rl)
     RelativeLayout myCollectionRl;
-    @BindView(R.id.tell_us_rl)
-    RelativeLayout tellUsRl;
     @BindView(R.id.about_us_rl)
     RelativeLayout aboutUsRl;
     @BindView(R.id.user_head_img)
@@ -66,7 +63,6 @@ public class MineFragment extends Fragment {
     View logoutBtn;
     @BindView(R.id.donate_rl)
     RelativeLayout donateRl;
-
 
     private Unbinder unbind;
 
@@ -108,7 +104,8 @@ public class MineFragment extends Fragment {
 
     @OnClick(R.id.my_download_rl)
     public void onMyDownloadRlClicked() {
-        startActivity(new Intent(getContext(), MyDownloadActivity.class));
+        ToastUtil.showShort("暂未开放");
+        //startActivity(new Intent(getContext(), MyDownloadActivity.class));
     }
 
     @OnClick(R.id.my_collection_rl)
@@ -140,16 +137,6 @@ public class MineFragment extends Fragment {
                 .setCancelable(true)
                 .create();
         alertDialog.show();
-    }
-
-    @OnClick(R.id.tell_us_rl)
-    public void onTellUsRlClicked() {
-        WeiBoUserInfo weiBoUserInfo = WeiBoUserInfoKeeper.read(getContext());
-        if (weiBoUserInfo != null) {
-            startActivity(new Intent(getContext(), TellUsActivity.class));
-        } else {
-            //showDialog("告诉我们", "登录之后才能使用该功能哦~", "登录", (dialog, which) -> onUserInfoRlClicked());
-        }
     }
 
     @OnClick(R.id.logout_btn)
@@ -190,35 +177,23 @@ public class MineFragment extends Fragment {
      * 获取微博用户信息
      */
     public void getUserInfoFromWeiBo() {
+        ((BaseActivity) getActivity()).showProgressDialog(true);
         Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(getContext());
         HttpCore.getInstance().getApi()
                 .getWeiBoUserInfo(accessToken.getToken(), accessToken.getUid())
                 .subscribeOn(new NewThreadScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(weiBoUserInfo -> {
+                    ((BaseActivity) getActivity()).showProgressDialog(false);
                     LogUtil.i("tag", weiBoUserInfo.toString());
                     WeiBoUserInfoKeeper.write(getContext(), weiBoUserInfo);
-                    login();
                     initView();
                 }, throwable -> {
+                    ((BaseActivity) getActivity()).showProgressDialog(false);
                     throwable.printStackTrace();
                     ErrorMessageUtil.showErrorByToast(throwable);
                 });
     }
-
-    public void login() {
-        UserLoginRequestInfo userLoginRequestInfo = new UserLoginRequestInfo();
-        WeiBoUserInfo weiBoUserInfo = WeiBoUserInfoKeeper.read(getContext());
-        userLoginRequestInfo.setUserId(weiBoUserInfo.getId());
-        userLoginRequestInfo.setUserName(weiBoUserInfo.getName());
-        userLoginRequestInfo.setUserGender(weiBoUserInfo.getGender());
-        HttpCore.getInstance().getApi()
-                .userLogin(userLoginRequestInfo)
-                .subscribeOn(new NewThreadScheduler())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
-    }
-
 
     @Override
     public void onDestroy() {

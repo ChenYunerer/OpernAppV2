@@ -20,9 +20,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpCore {
     private static final String TAG = HttpCore.class.getSimpleName();
-    public static final String BaseUrl = "http://60.205.182.130:8080/OpernServer/";
+    //public static final String BaseUrl = "http://60.205.182.130:8080/OpernServer/";
     //public static final String BaseUrl = "http://192.168.0.102:8080/opern/";
-    //public static final String BaseUrl = "http://192.168.0.109:8080/OpernServer/";
+    public static final String BaseUrl = "http://192.168.0.109:8080/OpernServer/";
     private static HttpCore httpCore;
     private static OkHttpClient okHttpClient;
     private static ApiService apiService;

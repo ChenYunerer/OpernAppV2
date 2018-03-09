@@ -1,10 +1,8 @@
 package com.yun.opernv2.ui.bases;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -22,7 +20,7 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected Context context;
-    protected LoadingDialog progressDialog;
+    protected LoadingDialog loadingDialog;
     protected CommonDialog alertDialog;
     protected Unbinder unbinder;
 
@@ -47,26 +45,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         initedView();
     }
 
-    protected void showProgressDialog(boolean show, DialogInterface.OnCancelListener onCancelListener) {
+    public void showProgressDialog(boolean show) {
         if(show){
-            if(progressDialog == null){
-                progressDialog = new LoadingDialog(context);
-                progressDialog.setCancelable(true);
-                progressDialog.setCanceledOnTouchOutside(true);
-                if(onCancelListener != null){
-                    progressDialog.setOnCancelListener(onCancelListener);
-                }
-            }
-            progressDialog.show();
+            loadingDialog = LoadingDialog.show(context, "请求中···");
         }else {
-            if(progressDialog != null && progressDialog.isShowing()){
-                new Handler().postDelayed(() -> progressDialog.dismiss(), 300);
+            if (loadingDialog != null && loadingDialog.isShowing()) {
+                loadingDialog.dismiss();
             }
         }
-    }
-
-    protected void showProgressDialog(boolean show) {
-        showProgressDialog(show, null);
     }
 
     protected void showDialog(String title, String message, String positive, BaseDialog.OnPositiveButtonClickListener positiveListener) {

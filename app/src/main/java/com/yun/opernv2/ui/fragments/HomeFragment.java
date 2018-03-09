@@ -26,11 +26,10 @@ import com.yun.opernv2.R;
 import com.yun.opernv2.model.OpernInfo;
 import com.yun.opernv2.net.HttpCore;
 import com.yun.opernv2.net.request.GetRandomOpernReq;
-import com.yun.opernv2.ui.activitys.LastUpdateOpernInfoActivity;
-import com.yun.opernv2.ui.activitys.MusicChartActivity;
 import com.yun.opernv2.ui.activitys.ShowImageActivity;
 import com.yun.opernv2.ui.activitys.WebViewActivity;
 import com.yun.opernv2.utils.ErrorMessageUtil;
+import com.yun.opernv2.utils.ToastUtil;
 
 import java.util.ArrayList;
 
@@ -122,18 +121,9 @@ public class HomeFragment extends Fragment {
                     opernSrl.setRefreshing(false);
                     requesting = false;
                     ErrorMessageUtil.showErrorByToast(throwable);
-                    lastUpdateTime();
-                }, this::lastUpdateTime);
+                });
     }
 
-    private void lastUpdateTime() {
-        HttpCore.getInstance().getApi()
-                .latestUpdateTime()
-                .subscribeOn(new NewThreadScheduler())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(stringBaseResponse -> adapter.getHeaderViewViewHolder().lastUpdateTimeTv.setText(stringBaseResponse.getData()),
-                        throwable -> adapter.getHeaderViewViewHolder().lastUpdateTimeTv.setText("0000-00-00 00:00:00.0"));
-    }
 
     public class BannerImageLoader extends ImageLoader {
 
@@ -280,15 +270,21 @@ public class HomeFragment extends Fragment {
             TextView dataOriginTv;
             @BindView(R.id.item_opern_list_data_category_tv)
             TextView categoryTv;
+            @BindView(R.id.img_download)
+            ImageView imgDownload;
+            @BindView(R.id.img_add_collection)
+            ImageView imgAddCollection;
 
             public ViewHolder(View itemView) {
                 super(itemView);
                 ButterKnife.bind(this, itemView);
-                itemView.setOnClickListener(v -> {
+                RxView.clicks(itemView).subscribe(o -> {
                     Intent intent = new Intent(getActivity(), ShowImageActivity.class);
                     intent.putExtra("opernInfo", opernInfoArrayList.get(getRealPosition(this)));
                     startActivity(intent);
                 });
+                RxView.clicks(imgDownload).subscribe(o -> ToastUtil.showShort("暂未开放"));
+                RxView.clicks(imgAddCollection).subscribe(o -> ToastUtil.showShort("暂未开放"));
             }
         }
 
@@ -305,8 +301,8 @@ public class HomeFragment extends Fragment {
             public HeaderViewViewHolder(View itemView) {
                 super(itemView);
                 ButterKnife.bind(this, itemView);
-                RxView.clicks(lastUpdateCardView).subscribe(o -> startActivity(new Intent(getContext(), LastUpdateOpernInfoActivity.class)));
-                RxView.clicks(musicChartCardView).subscribe(o -> startActivity(new Intent(getContext(), MusicChartActivity.class)));
+                RxView.clicks(lastUpdateCardView).subscribe(o -> ToastUtil.showShort("暂未开放"));
+                RxView.clicks(musicChartCardView).subscribe(o -> ToastUtil.showShort("暂未开放"));
             }
         }
     }

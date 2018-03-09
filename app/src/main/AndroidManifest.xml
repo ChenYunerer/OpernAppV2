@@ -85,15 +85,9 @@
             android:name="com.yun.opernv2.ui.activitys.MyCollectionActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
-            android:name="com.yun.opernv2.ui.activitys.TellUsActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
             android:name="com.yun.opernv2.ui.activitys.WriteFeedbackActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name="com.yun.opernv2.ui.activitys.ShowOpernByCategoryActivity" />
-        <activity android:name="com.yun.opernv2.ui.activitys.LastUpdateOpernInfoActivity" />
-        <activity android:name="com.yun.opernv2.ui.activitys.MusicChartActivity" />
-        <activity android:name="com.yun.opernv2.ui.activitys.MusicChartDetailActivity" />
         <activity android:name="com.yun.opernv2.ui.activitys.WebViewActivity" />
         <activity android:name="com.yun.opernv2.ui.activitys.DonateActivity" />
     </application>

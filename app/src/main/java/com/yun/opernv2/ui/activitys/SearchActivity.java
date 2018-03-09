@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.fynn.fluidlayout.FluidLayout;
 import com.yun.opernv2.Application;
 import com.yun.opernv2.R;
@@ -24,6 +25,7 @@ import com.yun.opernv2.db.SearchHistory;
 import com.yun.opernv2.db.SearchHistoryDao;
 import com.yun.opernv2.model.OpernInfo;
 import com.yun.opernv2.net.HttpCore;
+import com.yun.opernv2.net.request.SearchOpernReq;
 import com.yun.opernv2.ui.bases.BaseActivity;
 import com.yun.opernv2.utils.DisplayUtil;
 import com.yun.opernv2.utils.ErrorMessageUtil;
@@ -154,8 +156,12 @@ public class SearchActivity extends BaseActivity {
         requesting = true;
         opernLv.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
+        SearchOpernReq searchOpernReq = new SearchOpernReq();
+        searchOpernReq.setPageNum(0);
+        searchOpernReq.setPageSize(60);
+        searchOpernReq.setSearchParameter(searchParameter);
         searchDisposable = HttpCore.getInstance().getApi()
-                .searchOpernInfo(searchParameter)
+                .searchOpernInfo(searchOpernReq)
                 .subscribeOn(new NewThreadScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(arrayListBaseResponse -> {
@@ -199,6 +205,7 @@ public class SearchActivity extends BaseActivity {
         @Override
         public void onBindViewHolder(SearchActivity.Adapter.ViewHolder viewHolder, int position) {
             OpernInfo opernInfo = opernInfoArrayList.get(position);
+            Glide.with(context).load(opernInfo.getOpernFirstPicUrl()).into(viewHolder.opernImg);
             viewHolder.titleTv.setText(opernInfo.getOpernName());
             viewHolder.wordAuthorTv.setText("作词：" + opernInfo.getOpernWordAuthor());
             viewHolder.songAuthorTv.setText("作曲：" + opernInfo.getOpernSongAuthor());
@@ -222,6 +229,8 @@ public class SearchActivity extends BaseActivity {
 
 
         class ViewHolder extends RecyclerView.ViewHolder {
+            @BindView(R.id.item_opern_list_img)
+            ImageView opernImg;
             @BindView(R.id.item_opern_list_title_tv)
             TextView titleTv;
             @BindView(R.id.item_opern_list_wordAuthor_tv)

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,8 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity {
-
+    @BindView(R.id.edt_search)
+    EditText edtSearch;
     @BindView(R.id.view_pager)
     ViewPagerFix viewPager;
     @BindView(R.id.home_index)
@@ -88,6 +90,7 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+        edtSearch.setOnClickListener(v -> startActivity(new Intent(context, SearchActivity.class)));
     }
 
     @Override

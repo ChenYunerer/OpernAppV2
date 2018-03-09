@@ -16,10 +16,9 @@ import android.widget.TextView;
 import com.fynn.fluidlayout.FluidLayout;
 import com.yun.opernv2.R;
 import com.yun.opernv2.model.CategoryInfo;
-import com.yun.opernv2.net.HttpCore;
 import com.yun.opernv2.ui.activitys.ShowOpernByCategoryActivity;
 import com.yun.opernv2.utils.DisplayUtil;
-import com.yun.opernv2.utils.ErrorMessageUtil;
+import com.yun.opernv2.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -27,8 +26,6 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.internal.schedulers.NewThreadScheduler;
 
 
 public class CategoryFragment extends Fragment {
@@ -64,20 +61,8 @@ public class CategoryFragment extends Fragment {
     }
 
     private void getCategoryInfo() {
-        HttpCore.getInstance().getApi().getCategoryInfo()
-                .subscribeOn(new NewThreadScheduler())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(baseResponse -> {
-                    categoryInfos.clear();
-                    categoryInfos.addAll(baseResponse.getData());
-                    adapter.notifyDataSetChanged();
-                    categorySrl.setRefreshing(false);
-                    categorySrl.setEnabled(categoryInfos.size() == 0);
-                }, t -> {
-                    ErrorMessageUtil.showErrorByToast(t.getMessage());
-                    categorySrl.setRefreshing(false);
-                    categorySrl.setEnabled(categoryInfos.size() == 0);
-                });
+        ToastUtil.showShort("正在发开发中");
+        categorySrl.setRefreshing(false);
     }
 
 

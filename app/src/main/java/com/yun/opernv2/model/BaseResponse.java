@@ -4,8 +4,8 @@ package com.yun.opernv2.model;
  * Created by Yun on 2017/7/3 0003.
  */
 public class BaseResponse<T> {
-    public static final int RETURN_SUCCESS = 0;
-    public static final int RETURN_FAIL = -1;
+    public static final int RETURN_SUCCESS = 1;
+    public static final int RETURN_FAIL = 2;
 
     protected int code = RETURN_SUCCESS;
     protected String message = "";

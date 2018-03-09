@@ -14,6 +14,8 @@ import com.yun.opernv2.common.WeiBoUserInfo;
 import com.yun.opernv2.common.WeiBoUserInfoKeeper;
 import com.yun.opernv2.model.OpernInfo;
 import com.yun.opernv2.net.HttpCore;
+import com.yun.opernv2.net.request.GetCollectionReq;
+import com.yun.opernv2.net.request.RemoveCollectionReq;
 import com.yun.opernv2.ui.bases.BaseActivity;
 import com.yun.opernv2.utils.ErrorMessageUtil;
 import com.yun.opernv2.utils.T;
@@ -69,8 +71,10 @@ public class MyCollectionActivity extends BaseActivity {
             return;
         }
         showProgressDialog(true);
+        GetCollectionReq request = new GetCollectionReq();
+        request.setUserId(weiBoUserInfo.getId());
         HttpCore.getInstance().getApi()
-                .getCollectionOpernInfo(weiBoUserInfo.getId())
+                .getCollectionOpernInfo(request)
                 .subscribeOn(new NewThreadScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(arrayListBaseResponse -> {
@@ -90,8 +94,11 @@ public class MyCollectionActivity extends BaseActivity {
     public void removeCollect(int position) {
         showProgressDialog(true);
         WeiBoUserInfo weiBoUserInfo = WeiBoUserInfoKeeper.read(context);
+        RemoveCollectionReq request = new RemoveCollectionReq();
+        request.setUserId(weiBoUserInfo.getId());
+        request.setOpernId(opernInfos.get(position).getId());
         HttpCore.getInstance().getApi()
-                .removeCollection(weiBoUserInfo.getId(), opernInfos.get(position).getId())
+                .removeCollection(request)
                 .subscribeOn(new NewThreadScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(baseResponse -> {
@@ -144,8 +151,7 @@ public class MyCollectionActivity extends BaseActivity {
             }
             final OpernInfo opernInfo = opernInfos.get(position);
             viewHolder.itemImgGvLayoutTv.setText(opernInfo.getOpernName());
-            Glide.with(context).asBitmap().load(opernInfo.getOpernPicInfoList().get(0).getOpernPicUrl()).transition(withCrossFade()).into(viewHolder.itemImgGvLayoutImg);
-            //viewHolder.deleteImg.setOnClickListener((view) -> removeCollect(position));
+            Glide.with(context).asBitmap().load(opernInfo.getOpernFirstPicUrl()).transition(withCrossFade()).into(viewHolder.itemImgGvLayoutImg);
             return convertView;
         }
 

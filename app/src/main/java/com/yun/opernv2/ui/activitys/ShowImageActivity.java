@@ -1,6 +1,5 @@
 package com.yun.opernv2.ui.activitys;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -19,12 +18,14 @@ import com.yun.opernv2.common.WeiBoUserInfoKeeper;
 import com.yun.opernv2.model.OpernInfo;
 import com.yun.opernv2.model.OpernPicInfo;
 import com.yun.opernv2.net.HttpCore;
+import com.yun.opernv2.net.request.AddCollectionReq;
+import com.yun.opernv2.net.request.RemoveCollectionReq;
 import com.yun.opernv2.ui.bases.BaseActivity;
-import com.yun.opernv2.ui.fragments.MineFragment;
 import com.yun.opernv2.ui.fragments.ShowImageFragment;
 import com.yun.opernv2.utils.ErrorMessageUtil;
 import com.yun.opernv2.utils.FileUtil;
 import com.yun.opernv2.utils.ImageDownloadUtil;
+import com.yun.opernv2.utils.ToastUtil;
 import com.yun.opernv2.views.ActionBarNormal;
 import com.yun.opernv2.views.ViewPagerFix;
 
@@ -99,7 +100,8 @@ public class ShowImageActivity extends BaseActivity {
             }
         });
         downloadFab.setOnClickListener((view) -> {
-                    imageDownloadUtil = new ImageDownloadUtil(opernInfo, new ImageDownloadUtil.CallBack() {
+            ToastUtil.showShort("暂未开放");
+                    /*imageDownloadUtil = new ImageDownloadUtil(opernInfo, new ImageDownloadUtil.CallBack() {
                         @Override
                         public void success() {
                             if (downloadFab != null) {
@@ -112,7 +114,7 @@ public class ShowImageActivity extends BaseActivity {
                             ErrorMessageUtil.showErrorByToast("下载失败，请重试");
                         }
                     });
-                    imageDownloadUtil.start();
+                    imageDownloadUtil.start();*/
                 }
         );
         collectionFab.setOnClickListener((view) -> {
@@ -122,7 +124,7 @@ public class ShowImageActivity extends BaseActivity {
                         AlertDialog alertDialog = new AlertDialog.Builder(context)
                                 .setTitle("收藏")
                                 .setMessage("登录之后才能使用收藏功能哦~")
-                                .setPositiveButton("登录", (dialog, which) -> startActivity(new Intent(context, MineFragment.class)))
+                                .setPositiveButton("确定", (dialog, which) -> dialog.dismiss())
                                 .setCancelable(true)
                                 .create();
                         alertDialog.show();
@@ -166,14 +168,18 @@ public class ShowImageActivity extends BaseActivity {
      */
     public void addCollection() {
         WeiBoUserInfo weiBoUserInfo = WeiBoUserInfoKeeper.read(context);
+        AddCollectionReq request = new AddCollectionReq();
+        request.setUserId(weiBoUserInfo.getId());
+        request.setOpernId(opernInfo.getId());
         HttpCore.getInstance().getApi()
-                .addCollection(weiBoUserInfo.getId(), opernInfo.getId())
+                .addCollection(request)
                 .subscribeOn(new NewThreadScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(baseResponse -> {
                             if (baseResponse.isSuccess()) {
                                 isCollected = true;
                                 changeCollectIcon();
+                                ToastUtil.showShort(baseResponse.getMessage());
                             }
                         },
                         throwable -> {
@@ -188,15 +194,18 @@ public class ShowImageActivity extends BaseActivity {
      */
     public void removeCollect() {
         WeiBoUserInfo weiBoUserInfo = WeiBoUserInfoKeeper.read(context);
+        RemoveCollectionReq request = new RemoveCollectionReq();
+        request.setUserId(weiBoUserInfo.getId());
+        request.setOpernId(opernInfo.getId());
         HttpCore.getInstance().getApi()
-                .removeCollection(weiBoUserInfo.getId(), opernInfo.getId())
+                .removeCollection(request)
                 .subscribeOn(new NewThreadScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(baseResponse -> {
                     if (baseResponse.isSuccess()) {
                         isCollected = false;
                         changeCollectIcon();
-                        ErrorMessageUtil.showErrorByToast(baseResponse.getMessage());
+                        ToastUtil.showShort(baseResponse.getMessage());
                     }
                 }, Throwable::printStackTrace);
     }
