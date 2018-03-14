@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.yun.opernv2.ui.activitys.DonateActivity">
+    tools:context="com.yun.opernv2.ui.activity.DonateActivity">
 
     <com.yun.opernv2.views.ActionBarNormal
         android:id="@+id/actionbar"

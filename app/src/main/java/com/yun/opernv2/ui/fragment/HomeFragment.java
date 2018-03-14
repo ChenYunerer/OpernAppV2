@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.fragments;
+package com.yun.opernv2.ui.fragment;
 
 
 import android.content.Context;
@@ -26,8 +26,8 @@ import com.yun.opernv2.R;
 import com.yun.opernv2.model.OpernInfo;
 import com.yun.opernv2.net.HttpCore;
 import com.yun.opernv2.net.request.GetRandomOpernReq;
-import com.yun.opernv2.ui.activitys.ShowImageActivity;
-import com.yun.opernv2.ui.activitys.WebViewActivity;
+import com.yun.opernv2.ui.activity.ShowImageActivity;
+import com.yun.opernv2.ui.activity.WebViewActivity;
 import com.yun.opernv2.utils.ToastUtil;
 
 import java.util.ArrayList;

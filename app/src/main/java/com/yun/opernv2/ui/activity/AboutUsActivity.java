@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.activitys;
+package com.yun.opernv2.ui.activity;
 
 import android.widget.Button;
 
@@ -6,7 +6,7 @@ import com.jakewharton.rxbinding2.view.RxView;
 import com.tencent.bugly.beta.Beta;
 import com.yun.opernv2.BuildConfig;
 import com.yun.opernv2.R;
-import com.yun.opernv2.ui.bases.BaseActivity;
+import com.yun.opernv2.ui.base.BaseActivity;
 import com.yun.opernv2.utils.ToastUtil;
 
 import butterknife.BindView;

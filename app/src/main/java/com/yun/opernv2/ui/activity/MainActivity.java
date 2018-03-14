@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.activitys;
+package com.yun.opernv2.ui.activity;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -24,10 +24,10 @@ import com.yun.opernv2.common.WeiBoUserInfo;
 import com.yun.opernv2.common.WeiBoUserInfoKeeper;
 import com.yun.opernv2.model.event.StartWeiBoAuthorizeEvent;
 import com.yun.opernv2.model.event.WeiBoAuthorizeSuccessEvent;
-import com.yun.opernv2.ui.bases.BaseActivity;
-import com.yun.opernv2.ui.fragments.CategoryFragment;
-import com.yun.opernv2.ui.fragments.HomeFragment;
-import com.yun.opernv2.ui.fragments.MineFragment;
+import com.yun.opernv2.ui.base.BaseActivity;
+import com.yun.opernv2.ui.fragment.CategoryFragment;
+import com.yun.opernv2.ui.fragment.HomeFragment;
+import com.yun.opernv2.ui.fragment.MineFragment;
 import com.yun.opernv2.utils.ScreenUtils;
 import com.yun.opernv2.utils.ToastUtil;
 import com.yun.opernv2.views.ViewPagerFix;

@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.activitys;
+package com.yun.opernv2.ui.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -15,7 +15,7 @@ import com.yun.opernv2.R;
 import com.yun.opernv2.model.OpernInfo;
 import com.yun.opernv2.model.OpernPicInfo;
 import com.yun.opernv2.model.event.OpernFileDeleteEvent;
-import com.yun.opernv2.ui.bases.BaseActivity;
+import com.yun.opernv2.ui.base.BaseActivity;
 import com.yun.opernv2.utils.CacheFileUtil;
 import com.yun.opernv2.utils.FileUtil;
 import com.yun.opernv2.utils.ToastUtil;

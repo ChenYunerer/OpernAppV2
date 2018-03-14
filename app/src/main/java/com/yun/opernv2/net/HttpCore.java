@@ -81,7 +81,6 @@ public class HttpCore {
         }
     }
 
-
     /**
      * 平滑请求时间拦截器
      */
@@ -101,7 +100,6 @@ public class HttpCore {
             return response;
         }
     }
-
 
     public static HttpCore getInstance() {
         if (httpCore == null) {

@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.activitys;
+package com.yun.opernv2.ui.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,8 +21,8 @@ import com.yun.opernv2.net.HttpCore;
 import com.yun.opernv2.net.request.AddCollectionReq;
 import com.yun.opernv2.net.request.IsCollectedReq;
 import com.yun.opernv2.net.request.RemoveCollectionReq;
-import com.yun.opernv2.ui.bases.BaseActivity;
-import com.yun.opernv2.ui.fragments.ShowImageFragment;
+import com.yun.opernv2.ui.base.BaseActivity;
+import com.yun.opernv2.ui.fragment.ShowImageFragment;
 import com.yun.opernv2.utils.FileUtil;
 import com.yun.opernv2.utils.ImageDownloadUtil;
 import com.yun.opernv2.utils.ToastUtil;

@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.fragments;
+package com.yun.opernv2.ui.fragment;
 
 
 import android.animation.Animator;
@@ -25,7 +25,7 @@ import com.bumptech.glide.request.target.Target;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.yun.opernv2.R;
 import com.yun.opernv2.model.OpernPicInfo;
-import com.yun.opernv2.ui.activitys.ShowImageActivity;
+import com.yun.opernv2.ui.activity.ShowImageActivity;
 import com.yun.opernv2.utils.ToastUtil;
 import com.yun.opernv2.views.ActionBarNormal;
 

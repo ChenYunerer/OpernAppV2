@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.bases;
+package com.yun.opernv2.ui.base;
 
 import android.content.Context;
 import android.os.Build;

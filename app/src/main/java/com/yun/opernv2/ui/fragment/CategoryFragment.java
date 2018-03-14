@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.fragments;
+package com.yun.opernv2.ui.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.fynn.fluidlayout.FluidLayout;
 import com.yun.opernv2.R;
 import com.yun.opernv2.model.CategoryInfo;
-import com.yun.opernv2.ui.activitys.ShowOpernByCategoryActivity;
+import com.yun.opernv2.ui.activity.ShowOpernByCategoryActivity;
 import com.yun.opernv2.utils.DisplayUtil;
 import com.yun.opernv2.utils.ToastUtil;
 

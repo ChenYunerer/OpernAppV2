@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.fragments;
+package com.yun.opernv2.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,10 +20,10 @@ import com.yun.opernv2.model.event.OpernFileDeleteEvent;
 import com.yun.opernv2.model.event.StartWeiBoAuthorizeEvent;
 import com.yun.opernv2.model.event.WeiBoAuthorizeSuccessEvent;
 import com.yun.opernv2.net.HttpCore;
-import com.yun.opernv2.ui.activitys.AboutUsActivity;
-import com.yun.opernv2.ui.activitys.DonateActivity;
-import com.yun.opernv2.ui.activitys.MyCollectionActivity;
-import com.yun.opernv2.ui.bases.BaseActivity;
+import com.yun.opernv2.ui.activity.AboutUsActivity;
+import com.yun.opernv2.ui.activity.DonateActivity;
+import com.yun.opernv2.ui.activity.MyCollectionActivity;
+import com.yun.opernv2.ui.base.BaseActivity;
 import com.yun.opernv2.utils.CacheFileUtil;
 import com.yun.opernv2.utils.LogUtil;
 import com.yun.opernv2.utils.ToastUtil;

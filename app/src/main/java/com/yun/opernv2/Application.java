@@ -1,42 +1,65 @@
 package com.yun.opernv2;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.tencent.bugly.Bugly;
-import com.tencent.bugly.BuglyStrategy;
-import com.tencent.bugly.beta.Beta;
-import com.yun.opernv2.ui.activitys.MainActivity;
 
 
 /**
  * Created by Yun on 2017/8/10 0010.
  */
-
-public class Application extends android.app.Application{
-    private static Context applictionContext;
+public class Application extends android.app.Application {
+    private static Application context;
     private static final String BUGLY_APP_ID = "4713b8ea88";
 
     @Override
     public void onCreate() {
         super.onCreate();
-        applictionContext = this;
-        Beta.autoInit = true;  //自动初始化
-        Beta.initDelay = 500;  //延迟0.5s初始化，避免影响启动速度
-        Beta.autoCheckUpgrade = true;  //自动检查更新开关
-        Beta.enableHotfix = false;  //关闭热更新能力
-        Beta.canShowUpgradeActs.add(MainActivity.class);  //更新提示只能在首页显示,不限制手动调用检测更新
-        BuglyStrategy buglyStrategy = new BuglyStrategy();
-        buglyStrategy.setAppChannel(BuildConfig.FLAVOR);  //设置渠道
-        if (!BuildConfig.DEBUG) {
-            Bugly.init(getApplicationContext(), BUGLY_APP_ID, BuildConfig.DEBUG, buglyStrategy);
-        }
+        context = this;
+        initBugly();
+        initLog();
+    }
+
+    public static Context getAppContext() {
+        return context;
+    }
+
+    /**
+     * 初始化Bugly(APP异常捕获)
+     */
+    private void initBugly() {
+        Bugly.init(getApplicationContext(), BUGLY_APP_ID, BuildConfig.DEBUG);
+    }
+
+    /**
+     * 初始化Log
+     */
+    private void initLog() {
         Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
-    public static Context getAppContext(){
-        return applictionContext;
+    /**
+     * 设置app字体不随系统改变
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if (newConfig.fontScale != 1)//非默认值
+            getResources();
+        super.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        if (res.getConfiguration().fontScale != 1) {//非默认值
+            Configuration newConfig = new Configuration();
+            newConfig.setToDefaults();//设置默认
+            res.updateConfiguration(newConfig, res.getDisplayMetrics());
+        }
+        return res;
+    }
 }

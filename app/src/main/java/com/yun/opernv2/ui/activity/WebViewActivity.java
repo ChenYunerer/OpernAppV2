@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.activitys;
+package com.yun.opernv2.ui.activity;
 
 import android.view.KeyEvent;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.yun.opernv2.R;
-import com.yun.opernv2.ui.bases.BaseActivity;
+import com.yun.opernv2.ui.base.BaseActivity;
 import com.yun.opernv2.views.ActionBarNormal;
 
 import butterknife.BindView;

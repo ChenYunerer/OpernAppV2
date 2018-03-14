@@ -2,20 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yun.opernv2">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-
-
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name="com.yun.opernv2.Application"
@@ -26,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.yun.opernv2.ui.activitys.LauncherActivity"
+            android:name="com.yun.opernv2.ui.activity.LauncherActivity"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,22 +29,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.yun.opernv2.ui.activitys.MainActivity"
+            android:name="com.yun.opernv2.ui.activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.yun.opernv2.ui.activitys.MyDownloadActivity"
+            android:name="com.yun.opernv2.ui.activity.MyDownloadActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
-            android:name="com.yun.opernv2.ui.activitys.SearchActivity"
+            android:name="com.yun.opernv2.ui.activity.SearchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
-            android:name="com.yun.opernv2.ui.activitys.ShowImageActivity"
+            android:name="com.yun.opernv2.ui.activity.ShowImageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/FullscreenTheme" />
 
-
-        <!-- bugly -->
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
@@ -66,26 +58,18 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <meta-data
-            android:name="BUGLY_APP_CHANNEL"
-            android:value="${BUGLY_APP_CHANNEL_VALUE}" />
-        <!-- </>值来自开发者平台取得的AppKey -->
-        <meta-data
-            android:name="JPUSH_APPKEY"
-            android:value="c4436241da6745e2f8109770" />
-
         <activity
-            android:name="com.yun.opernv2.ui.activitys.AboutUsActivity"
+            android:name="com.yun.opernv2.ui.activity.AboutUsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
-            android:name="com.yun.opernv2.ui.activitys.MyCollectionActivity"
+            android:name="com.yun.opernv2.ui.activity.MyCollectionActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
-            android:name="com.yun.opernv2.ui.activitys.WriteFeedbackActivity"
+            android:name="com.yun.opernv2.ui.activity.WriteFeedbackActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name="com.yun.opernv2.ui.activitys.ShowOpernByCategoryActivity" />
-        <activity android:name="com.yun.opernv2.ui.activitys.WebViewActivity" />
-        <activity android:name="com.yun.opernv2.ui.activitys.DonateActivity" />
+        <activity android:name="com.yun.opernv2.ui.activity.ShowOpernByCategoryActivity" />
+        <activity android:name="com.yun.opernv2.ui.activity.WebViewActivity" />
+        <activity android:name="com.yun.opernv2.ui.activity.DonateActivity" />
     </application>
 
 </manifest>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:scrollbars="none"
-    tools:context="com.yun.opernv2.ui.activitys.AboutUsActivity">
+    tools:context="com.yun.opernv2.ui.activity.AboutUsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

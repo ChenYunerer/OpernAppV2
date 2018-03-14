@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.activitys;
+package com.yun.opernv2.ui.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.yun.opernv2.BuildConfig;
 import com.yun.opernv2.R;
-import com.yun.opernv2.ui.bases.BaseActivity;
+import com.yun.opernv2.ui.base.BaseActivity;
 import com.yun.opernv2.utils.CacheFileUtil;
 import com.yun.opernv2.utils.NetworkUtils;
 import com.yun.opernv2.utils.ToastUtil;

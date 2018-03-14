@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yun.opernv2.ui.activitys.ShowImageActivity">
+    tools:context="com.yun.opernv2.ui.activity.ShowImageActivity">
 
     <com.yun.opernv2.views.ViewPagerFix
         android:id="@+id/image_vp"

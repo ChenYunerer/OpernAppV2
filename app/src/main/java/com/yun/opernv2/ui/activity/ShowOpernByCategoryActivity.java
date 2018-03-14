@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.activitys;
+package com.yun.opernv2.ui.activity;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,7 +13,7 @@ import com.yun.opernv2.R;
 import com.yun.opernv2.model.CategoryInfo;
 import com.yun.opernv2.model.OpernInfo;
 import com.yun.opernv2.net.HttpCore;
-import com.yun.opernv2.ui.bases.BaseActivity;
+import com.yun.opernv2.ui.base.BaseActivity;
 import com.yun.opernv2.utils.ToastUtil;
 import com.yun.opernv2.views.ActionBarNormal;
 

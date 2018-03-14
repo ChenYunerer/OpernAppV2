@@ -1,4 +1,4 @@
-package com.yun.opernv2.ui.activitys;
+package com.yun.opernv2.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -26,7 +26,7 @@ import com.yun.opernv2.db.SearchHistoryDao;
 import com.yun.opernv2.model.OpernInfo;
 import com.yun.opernv2.net.HttpCore;
 import com.yun.opernv2.net.request.SearchOpernReq;
-import com.yun.opernv2.ui.bases.BaseActivity;
+import com.yun.opernv2.ui.base.BaseActivity;
 import com.yun.opernv2.utils.DisplayUtil;
 import com.yun.opernv2.utils.KeyboardUtils;
 import com.yun.opernv2.utils.ToastUtil;
