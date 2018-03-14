@@ -20,9 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpCore {
     private static final String TAG = HttpCore.class.getSimpleName();
-    //public static final String BaseUrl = "http://60.205.182.130:8080/OpernServer/";
-    //public static final String BaseUrl = "http://192.168.0.102:8080/opern/";
-    public static final String BaseUrl = "http://192.168.0.109:8080/OpernServer/";
+    public static final String BaseUrl = "http://60.205.182.130:8080/OpernServer/";
+    //public static final String BaseUrl = "http://192.168.0.109:8080/OpernServer/";
     private static HttpCore httpCore;
     private static OkHttpClient okHttpClient;
     private static ApiService apiService;
@@ -33,9 +32,9 @@ public class HttpCore {
                 .readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(15, TimeUnit.SECONDS)
                 //.proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("192.168.0.109", 8888)))
-                //.addNetworkInterceptor(new HeaderInterceptor())
+                .addNetworkInterceptor(new HeaderInterceptor())
                 //.addNetworkInterceptor(new LogInterceptor())
-                //.addNetworkInterceptor(new SleepInterceptor())
+                .addNetworkInterceptor(new SleepInterceptor())
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()

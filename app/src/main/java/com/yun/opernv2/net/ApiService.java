@@ -6,6 +6,7 @@ import com.yun.opernv2.model.OpernInfo;
 import com.yun.opernv2.net.request.AddCollectionReq;
 import com.yun.opernv2.net.request.GetCollectionReq;
 import com.yun.opernv2.net.request.GetRandomOpernReq;
+import com.yun.opernv2.net.request.IsCollectedReq;
 import com.yun.opernv2.net.request.RemoveCollectionReq;
 import com.yun.opernv2.net.request.SearchOpernReq;
 
@@ -34,8 +35,8 @@ public interface ApiService {
     @GET(value = "opern/searchOpernInfoByCategory")
     Observable<BaseResponse<ArrayList<OpernInfo>>> searchOpernInfoByCategory(@Query("categoryOne") String categoryOne, @Query("categoryTwo") String categoryTwo, @Query("index") int index, @Query("numPerPage") int numPerPage);
 
-    @GET(value = "collection/isCollected")
-    Observable<BaseResponse> isCollected(@Query("userId") long userId, @Query("opernId") int opernId);
+    @POST(value = "collection/isCollected")
+    Observable<BaseResponse<Boolean>> isCollected(@Body IsCollectedReq request);
 
     @POST(value = "collection/add")
     Observable<BaseResponse> addCollection(@Body AddCollectionReq request);

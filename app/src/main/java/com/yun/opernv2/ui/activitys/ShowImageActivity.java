@@ -19,6 +19,7 @@ import com.yun.opernv2.model.OpernInfo;
 import com.yun.opernv2.model.OpernPicInfo;
 import com.yun.opernv2.net.HttpCore;
 import com.yun.opernv2.net.request.AddCollectionReq;
+import com.yun.opernv2.net.request.IsCollectedReq;
 import com.yun.opernv2.net.request.RemoveCollectionReq;
 import com.yun.opernv2.ui.bases.BaseActivity;
 import com.yun.opernv2.ui.fragments.ShowImageFragment;
@@ -149,12 +150,15 @@ public class ShowImageActivity extends BaseActivity {
         if (weiBoUserInfo == null) {
             return;
         }
-        HttpCore.getInstance().getApi().isCollected(weiBoUserInfo.getId(), opernInfo.getId())
+        IsCollectedReq request = new IsCollectedReq();
+        request.setOpernId(opernInfo.getId());
+        request.setUserId(weiBoUserInfo.getId());
+        HttpCore.getInstance().getApi().isCollected(request)
                 .subscribeOn(new NewThreadScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(baseResponse -> {
                     if (baseResponse.isSuccess()) {
-                        isCollected = true;
+                        isCollected = baseResponse.getData();
                     } else {
                         isCollected = false;
                     }
