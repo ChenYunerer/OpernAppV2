@@ -1,13 +1,13 @@
 package com.yun.opernv2.ui.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.sina.weibo.sdk.auth.AccessTokenKeeper;
@@ -40,9 +40,13 @@ public class ShowImageActivity extends BaseActivity {
     @BindView(R.id.image_vp)
     ViewPagerFix imageVp;
     @BindView(R.id.download_fab)
-    FloatingActionButton downloadFab;
+    View downloadFab;
     @BindView(R.id.collection_fab)
-    FloatingActionButton collectionFab;
+    View collectionFab;
+    @BindView(R.id.download_img)
+    ImageView downloadImg;
+    @BindView(R.id.collection_img)
+    ImageView collectionImg;
     @BindView(R.id.fab_btns)
     LinearLayout fabBtns;
     @BindView(R.id.actionbar)
@@ -170,6 +174,7 @@ public class ShowImageActivity extends BaseActivity {
      * 收藏
      */
     public void addCollection() {
+        showProgressDialog(true);
         WeiBoUserInfo weiBoUserInfo = WeiBoUserInfoKeeper.read(context);
         AddCollectionReq request = new AddCollectionReq();
         request.setUserId(weiBoUserInfo.getId());
@@ -184,10 +189,12 @@ public class ShowImageActivity extends BaseActivity {
                                 changeCollectIcon();
                                 ToastUtil.showShort(baseResponse.getMessage());
                             }
+                            showProgressDialog(false);
                         },
                         throwable -> {
                             throwable.printStackTrace();
                             ToastUtil.showError(throwable);
+                            showProgressDialog(false);
                         }
                 );
     }
@@ -196,6 +203,7 @@ public class ShowImageActivity extends BaseActivity {
      * 取消收藏
      */
     public void removeCollect() {
+        showProgressDialog(true);
         WeiBoUserInfo weiBoUserInfo = WeiBoUserInfoKeeper.read(context);
         RemoveCollectionReq request = new RemoveCollectionReq();
         request.setUserId(weiBoUserInfo.getId());
@@ -210,11 +218,15 @@ public class ShowImageActivity extends BaseActivity {
                         changeCollectIcon();
                         ToastUtil.showShort(baseResponse.getMessage());
                     }
-                }, Throwable::printStackTrace);
+                    showProgressDialog(false);
+                }, throwable -> {
+                    throwable.printStackTrace();
+                    showProgressDialog(false);
+                });
     }
 
     public void changeCollectIcon() {
-        collectionFab.setImageResource(isCollected ? R.mipmap.ic_collected : R.mipmap.ic_collection);
+        collectionImg.setImageResource(isCollected ? R.mipmap.ic_collected : R.mipmap.ic_collection);
     }
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {

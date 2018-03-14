@@ -193,26 +193,15 @@ public class HomeFragment extends Fragment {
         public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_HEADER) {
                 HeaderViewViewHolder holder = (HeaderViewViewHolder) viewHolder;
-                //设置banner样式
                 holder.banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-                //设置图片加载器
                 holder.banner.setImageLoader(new BannerImageLoader());
-                //设置图片集合
                 ArrayList<String> images = new ArrayList<>();
                 images.add(HttpCore.BaseUrl + "resources/image/ic_my_website.png");
-                images.add("http://www.qupu123.com/Public/Mobile/Images/android/1.gif");
                 holder.banner.setImages(images);
-                //设置banner动画效果
                 holder.banner.setBannerAnimation(Transformer.Default);
-                //设置标题集合（当banner样式有显示title时）
-                //banner.setBannerTitles(titles);
-                //设置自动轮播，默认为true
                 holder.banner.isAutoPlay(true);
-                //设置轮播时间
                 holder.banner.setDelayTime(4000);
-                //设置指示器位置（当banner模式中有指示器时）
                 holder.banner.setIndicatorGravity(BannerConfig.CENTER);
-                //banner设置方法全部调用完毕时最后调用
                 holder.banner.start();
                 holder.banner.setOnBannerListener(position1 -> {
                     Intent intent = new Intent(getContext(), WebViewActivity.class);
@@ -220,10 +209,6 @@ public class HomeFragment extends Fragment {
                         case 0:
                             intent.putExtra("url", "http://60.205.182.130:8080/OpernServer/");
                             break;
-                        case 1:
-                            intent.putExtra("url", "http://m.qupu123.com/");
-                            break;
-
                     }
                     startActivity(intent);
                 });
@@ -235,17 +220,7 @@ public class HomeFragment extends Fragment {
                 holder.wordAuthorTv.setText("作词：" + opernInfo.getOpernWordAuthor());
                 holder.songAuthorTv.setText("作曲：" + opernInfo.getOpernSongAuthor());
                 holder.dataOriginTv.setText(opernInfo.getOriginName());
-                StringBuilder stringBuilder = new StringBuilder();
-                /*stringBuilder.append(opernInfo.getCategoryOne());
-                if (!opernInfo.getCategoryTwo().equals("")) {
-                    stringBuilder.append("/");
-                    stringBuilder.append(opernInfo.getCategoryTwo());
-                }
-                if (!opernInfo.getCategoryThree().equals("")) {
-                    stringBuilder.append("/");
-                    stringBuilder.append(opernInfo.getCategoryThree());
-                }
-                holder.categoryTv.setText(stringBuilder.toString());*/
+
             }
         }
 
@@ -269,10 +244,6 @@ public class HomeFragment extends Fragment {
             TextView dataOriginTv;
             @BindView(R.id.item_opern_list_data_category_tv)
             TextView categoryTv;
-            @BindView(R.id.img_download)
-            ImageView imgDownload;
-            @BindView(R.id.img_add_collection)
-            ImageView imgAddCollection;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -282,8 +253,6 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("opernInfo", opernInfoArrayList.get(getRealPosition(this)));
                     startActivity(intent);
                 });
-                RxView.clicks(imgDownload).subscribe(o -> ToastUtil.showShort("暂未开放"));
-                RxView.clicks(imgAddCollection).subscribe(o -> ToastUtil.showShort("暂未开放"));
             }
         }
 
