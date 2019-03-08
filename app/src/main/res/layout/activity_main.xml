@@ -64,17 +64,6 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/category_index"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="分类"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                    <TextView
                         android:id="@+id/mine_index"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -96,8 +85,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
                         android:background="@drawable/selector_indicator_bg" />
 
                 </FrameLayout>

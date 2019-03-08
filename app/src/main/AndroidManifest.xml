@@ -33,9 +33,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.yun.opernv2.ui.activity.MyDownloadActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
             android:name="com.yun.opernv2.ui.activity.SearchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
@@ -49,7 +46,7 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -61,14 +58,7 @@
         <activity
             android:name="com.yun.opernv2.ui.activity.AboutUsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
-            android:name="com.yun.opernv2.ui.activity.MyCollectionActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
-            android:name="com.yun.opernv2.ui.activity.WriteFeedbackActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name="com.yun.opernv2.ui.activity.ShowOpernByCategoryActivity" />
-        <activity android:name="com.yun.opernv2.ui.activity.WebViewActivity" />
+
         <activity android:name="com.yun.opernv2.ui.activity.DonateActivity" />
     </application>
 

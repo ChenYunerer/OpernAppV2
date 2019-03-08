@@ -1,72 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.yun.opernv2.ui.activity.ShowImageActivity">
-
-    <com.yun.opernv2.views.ViewPagerFix
-        android:id="@+id/image_vp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <LinearLayout
-        android:id="@+id/fab_btns"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:background="#fafafa"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/download_fab"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="download"
-                android:textColor="@color/black" />
-
-            <ImageView
-                android:id="@+id/download_img"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="10dp"
-                android:src="@mipmap/ic_download" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:background="@color/side_color" />
-
-        <LinearLayout
-            android:id="@+id/collection_fab"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="collection"
-                android:textColor="@color/black" />
-
-            <ImageView
-                android:id="@+id/collection_img"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="10dp"
-                android:src="@mipmap/ic_collection" />
-        </LinearLayout>
-    </LinearLayout>
 
     <com.yun.opernv2.views.ActionBarNormal
         android:id="@+id/actionbar"
@@ -74,4 +13,9 @@
         android:layout_height="wrap_content"
         app:title="this is title" />
 
-</FrameLayout>
+    <com.yun.opernv2.views.ViewPagerFix
+        android:id="@+id/image_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

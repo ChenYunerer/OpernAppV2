@@ -1,9 +1,9 @@
 package com.yun.opernv2.utils;
 
-import android.support.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * Created by Yun on 2017/10/25 0025.

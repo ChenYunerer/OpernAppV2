@@ -3,9 +3,6 @@ package com.yun.opernv2.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -23,9 +20,8 @@ import com.yun.opernv2.R;
 import com.yun.opernv2.db.DBCore;
 import com.yun.opernv2.db.SearchHistory;
 import com.yun.opernv2.db.SearchHistoryDao;
-import com.yun.opernv2.model.OpernInfo;
+import com.yun.opernv2.model.ScoreBaseInfoDO;
 import com.yun.opernv2.net.HttpCore;
-import com.yun.opernv2.net.request.SearchOpernReq;
 import com.yun.opernv2.ui.base.BaseActivity;
 import com.yun.opernv2.utils.DisplayUtil;
 import com.yun.opernv2.utils.KeyboardUtils;
@@ -37,6 +33,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -58,7 +57,7 @@ public class SearchActivity extends BaseActivity {
     FluidLayout searchHistoryView;
 
     private String searchParameter;
-    private ArrayList<OpernInfo> opernInfoArrayList = new ArrayList<>();
+    private ArrayList<ScoreBaseInfoDO> scoreBaseInfoDOArrayList = new ArrayList<>();
     private Adapter adapter;
     private boolean requesting = false;
     private Disposable searchDisposable;
@@ -100,7 +99,7 @@ public class SearchActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         opernLv.setLayoutManager(linearLayoutManager);
         opernLv.setItemAnimator(new DefaultItemAnimator());
-        adapter = new Adapter(opernInfoArrayList);
+        adapter = new Adapter(scoreBaseInfoDOArrayList);
         opernLv.setAdapter(adapter);
         searchBtn.setOnClickListener(v -> {
             if (requesting) {
@@ -156,18 +155,14 @@ public class SearchActivity extends BaseActivity {
         requesting = true;
         opernLv.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
-        SearchOpernReq searchOpernReq = new SearchOpernReq();
-        searchOpernReq.setPageNum(0);
-        searchOpernReq.setPageSize(60);
-        searchOpernReq.setSearchParameter(searchParameter);
         searchDisposable = HttpCore.getInstance().getApi()
-                .searchOpernInfo(searchOpernReq)
+                .scoreBase(searchParameter)
                 .subscribeOn(new NewThreadScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(arrayListBaseResponse -> {
-                    opernInfoArrayList.clear();
-                    ArrayList<OpernInfo> data = arrayListBaseResponse.getData();
-                    opernInfoArrayList.addAll(data);
+                    scoreBaseInfoDOArrayList.clear();
+                    ArrayList<ScoreBaseInfoDO> data = arrayListBaseResponse.getData();
+                    scoreBaseInfoDOArrayList.addAll(data);
                     adapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.GONE);
                     opernLv.setVisibility(View.VISIBLE);
@@ -190,11 +185,11 @@ public class SearchActivity extends BaseActivity {
     }
 
     public class Adapter extends RecyclerView.Adapter<SearchActivity.Adapter.ViewHolder> {
-        private ArrayList<OpernInfo> opernInfoArrayList;
+        private ArrayList<ScoreBaseInfoDO> scoreBaseInfoDOArrayList;
 
 
-        public Adapter(ArrayList<OpernInfo> opernInfoArrayList) {
-            this.opernInfoArrayList = opernInfoArrayList;
+        public Adapter(ArrayList<ScoreBaseInfoDO> scoreBaseInfoDOArrayList) {
+            this.scoreBaseInfoDOArrayList = scoreBaseInfoDOArrayList;
         }
 
         @Override
@@ -204,27 +199,27 @@ public class SearchActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(SearchActivity.Adapter.ViewHolder viewHolder, int position) {
-            OpernInfo opernInfo = opernInfoArrayList.get(position);
-            Glide.with(context).load(opernInfo.getOpernFirstPicUrl()).into(viewHolder.opernImg);
-            viewHolder.titleTv.setText(opernInfo.getOpernName());
-            viewHolder.wordAuthorTv.setText("作词：" + opernInfo.getOpernWordAuthor());
-            viewHolder.songAuthorTv.setText("作曲：" + opernInfo.getOpernSongAuthor());
-            viewHolder.dataOriginTv.setText(opernInfo.getOriginName());
+            ScoreBaseInfoDO scoreBaseInfoDO = scoreBaseInfoDOArrayList.get(position);
+            Glide.with(context).load(scoreBaseInfoDO.getScoreCoverPicture()).into(viewHolder.opernImg);
+            viewHolder.titleTv.setText(scoreBaseInfoDO.getScoreName());
+            viewHolder.wordAuthorTv.setText("作词：" + scoreBaseInfoDO.getScoreWordWriter());
+            viewHolder.songAuthorTv.setText("作曲：" + scoreBaseInfoDO.getScoreSongWriter());
+            viewHolder.dataOriginTv.setText(scoreBaseInfoDO.getScoreOrigin());
             /*StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(opernInfo.getCategoryOne());
-            if (!opernInfo.getCategoryTwo().equals("")) {
+            stringBuilder.append(scoreBaseInfoDO.getCategoryOne());
+            if (!scoreBaseInfoDO.getCategoryTwo().equals("")) {
                 stringBuilder.append("/");
-                stringBuilder.append(opernInfo.getCategoryTwo());
+                stringBuilder.append(scoreBaseInfoDO.getCategoryTwo());
             }
-            if (!opernInfo.getCategoryThree().equals("")) {
+            if (!scoreBaseInfoDO.getCategoryThree().equals("")) {
                 stringBuilder.append("/");
-                stringBuilder.append(opernInfo.getCategoryThree());
+                stringBuilder.append(scoreBaseInfoDO.getCategoryThree());
             }*/
         }
 
         @Override
         public int getItemCount() {
-            return opernInfoArrayList.size();
+            return scoreBaseInfoDOArrayList.size();
         }
 
 
@@ -247,7 +242,7 @@ public class SearchActivity extends BaseActivity {
                 ButterKnife.bind(this, itemView);
                 itemView.setOnClickListener(v -> {
                     Intent intent = new Intent(SearchActivity.this, ShowImageActivity.class);
-                    intent.putExtra("opernInfo", opernInfoArrayList.get(getAdapterPosition()));
+                    intent.putExtra("scoreBaseInfoDO", scoreBaseInfoDOArrayList.get(getAdapterPosition()));
                     startActivity(intent);
                 });
             }

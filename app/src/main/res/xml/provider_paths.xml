@@ -9,6 +9,6 @@
         name="beta_external_files_path"
         path="Android/data/" />
     <external-path
-        name="jydp"
+        name="score"
         path="." />
 </paths>

@@ -3,14 +3,14 @@ package com.yun.opernv2.ui.base;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.yun.opernv2.ui.dialog.BaseDialog;
 import com.yun.opernv2.ui.dialog.CommonDialog;
 import com.yun.opernv2.ui.dialog.LoadingDialog;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 

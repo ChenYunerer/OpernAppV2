@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,8 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpCore {
     private static final String TAG = HttpCore.class.getSimpleName();
-    public static final String BaseUrl = "http://60.205.182.130:8080/OpernServer/";
-    //public static final String BaseUrl = "http://192.168.0.109:8080/OpernServer/";
+    public static final String BaseUrl = "http://soupu.yuner.fun/";
     private static HttpCore httpCore;
     private static OkHttpClient okHttpClient;
     private static ApiService apiService;
@@ -31,10 +29,7 @@ public class HttpCore {
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(15, TimeUnit.SECONDS)
-                //.proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("192.168.0.109", 8888)))
-                .addNetworkInterceptor(new HeaderInterceptor())
-                //.addNetworkInterceptor(new LogInterceptor())
-                .addNetworkInterceptor(new SleepInterceptor())
+                .addNetworkInterceptor(new LogInterceptor())
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -45,18 +40,6 @@ public class HttpCore {
                 .build();
 
         apiService = retrofit.create(ApiService.class);
-    }
-
-    private class HeaderInterceptor implements Interceptor {
-
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Request request = chain.request().newBuilder()
-                    .addHeader("Accept", "application/json")
-                    .addHeader("Content-Type", "application/json")
-                    .build();
-            return chain.proceed(request);
-        }
     }
 
     /**
@@ -81,26 +64,6 @@ public class HttpCore {
         }
     }
 
-    /**
-     * 平滑请求时间拦截器
-     */
-    private class SleepInterceptor implements Interceptor {
-
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            long start = System.currentTimeMillis();
-            Response response = chain.proceed(chain.request());
-            if (System.currentTimeMillis() - start < 1000) {
-                try {
-                    Thread.sleep(700);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            return response;
-        }
-    }
-
     public static HttpCore getInstance() {
         if (httpCore == null) {
             synchronized (HttpCore.class) {
@@ -110,10 +73,6 @@ public class HttpCore {
             }
         }
         return httpCore;
-    }
-
-    public static OkHttpClient getOkHttpClient() {
-        return okHttpClient;
     }
 
     public ApiService getApi() {

@@ -3,7 +3,6 @@ package com.yun.opernv2.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yun.opernv2.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 /**

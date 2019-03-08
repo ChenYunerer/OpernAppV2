@@ -1,21 +1,13 @@
 package com.yun.opernv2.net;
 
-import com.yun.opernv2.common.WeiBoUserInfo;
 import com.yun.opernv2.model.BaseResponse;
-import com.yun.opernv2.model.OpernInfo;
-import com.yun.opernv2.net.request.AddCollectionReq;
-import com.yun.opernv2.net.request.GetCollectionReq;
-import com.yun.opernv2.net.request.GetRandomOpernReq;
-import com.yun.opernv2.net.request.IsCollectedReq;
-import com.yun.opernv2.net.request.RemoveCollectionReq;
-import com.yun.opernv2.net.request.SearchOpernReq;
+import com.yun.opernv2.model.ScoreBaseInfoDO;
+import com.yun.opernv2.model.ScorePictureInfoDO;
 
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -23,27 +15,13 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
 
-    @GET(value = "https://api.weibo.com/2/users/show.json")
-    Observable<WeiBoUserInfo> getWeiBoUserInfo(@Query("access_token") String access_token, @Query("uid") String uid);
+    @GET(value = "app/score/homeRecommend")
+    Observable<BaseResponse<ArrayList<ScoreBaseInfoDO>>> homeRecommend(@Query("page") int page);
 
-    @POST(value = "opern/randomOpern")
-    Observable<BaseResponse<ArrayList<OpernInfo>>> getRandomOpernInfo(@Body GetRandomOpernReq request);
+    @GET(value = "app/score/scoreBase")
+    Observable<BaseResponse<ArrayList<ScoreBaseInfoDO>>> scoreBase(@Query("searchParameter") String searchParameter);
 
-    @POST(value = "opern/searchOpern")
-    Observable<BaseResponse<ArrayList<OpernInfo>>> searchOpernInfo(@Body SearchOpernReq request);
+    @GET(value = "app/score/scorePicture")
+    Observable<BaseResponse<ArrayList<ScorePictureInfoDO>>> scorePicture(@Query("scoreId") int scoreId);
 
-    @GET(value = "opern/searchOpernInfoByCategory")
-    Observable<BaseResponse<ArrayList<OpernInfo>>> searchOpernInfoByCategory(@Query("categoryOne") String categoryOne, @Query("categoryTwo") String categoryTwo, @Query("index") int index, @Query("numPerPage") int numPerPage);
-
-    @POST(value = "collection/isCollected")
-    Observable<BaseResponse<Boolean>> isCollected(@Body IsCollectedReq request);
-
-    @POST(value = "collection/add")
-    Observable<BaseResponse> addCollection(@Body AddCollectionReq request);
-
-    @POST(value = "collection/remove")
-    Observable<BaseResponse> removeCollection(@Body RemoveCollectionReq request);
-
-    @POST(value = "collection/get")
-    Observable<BaseResponse<ArrayList<OpernInfo>>> getCollectionOpernInfo(@Body GetCollectionReq request);
 }
